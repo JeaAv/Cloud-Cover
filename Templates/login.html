@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Cloud Cover</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="../static/login.js" defer></script>
+    <link rel="stylesheet" href="../static/style.css">
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <span class="hamburger-btn material-symbols-rounded">☰</span>
+        <a href="#" class="logo">
+            <img src="/static/images/cloudy.jpg" alt="logo">
+            <h2>Cloud Cover System</h2>
+        </a>
+        <ul class="links">
+            <span class="close-btn material-symbols-rounded">X</span>
+            <li><a href="#">About us</a></li>
+        </ul>
+        <button class="login-btn">LOG IN</button>
+    </nav>
+</header>
+
+<div class="blur-bg-overlay"></div>
+<div class="form-popup">
+    <span class="close-btn material-symbols-rounded">X</span>
+    
+    <!-- LOGIN FORM -->
+    <div class="form-box login">
+        <div class="form-details">
+            <h2>Welcome Back</h2>
+            <p>Please log in using your personal information to stay connected with us.</p>
+        </div>
+        <div class="form-content">
+            <h2>LOGIN</h2>
+            <form id="loginForm">
+                <div class="input-field">
+                    <input type="text" id="username" required>
+                    <label>Username or Email</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="password" required>
+                    <label>Password</label>
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+            <div class="bottom-link">
+                Don't have an account?
+                <a href="#" id="signup-link">Signup</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div class="form-box signup">
+        <div class="form-details">
+            <h2>Create Account</h2>
+            <p>To become a part of our community, please sign up using your personal information.</p>
+        </div>
+        <div class="form-content">
+            <h2>SIGNUP</h2>
+            <form id="signupForm">
+                <div class="input-field">
+                    <input type="email" id="signupEmail" required>
+                    <label>Enter your email</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="signupUsername" required>
+                    <label>Enter your username</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="signupPassword" required>
+                    <label>Create password</label>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="bottom-link">
+                Already have an account?
+                <a href="#" id="login-link">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification Modal -->
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <p>You have created an account successfully!</p>
+        <p>You will be redirected to the login page.</p>
+    </div>
+</div>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Send login data to the server
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Store the username and password in localStorage for verification later
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('password', password);
+                    // Redirect to the index page
+                    window.location.href = '/index';
+                } else {
+                    // Display error message if login fails
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred during login: ' + error.message);
+            });
+        });
+
+        // Handle signup form submission
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const email = document.getElementById('signupEmail').value;
+    const username = document.getElementById('signupUsername').value;
+    const password = document.getElementById('signupPassword').value;
+
+    // Send signup data to the server
+    fetch('/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email, username: username, password: password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success modal
+            const successModal = document.getElementById('successModal');
+            successModal.style.display = 'block';
+
+            // Set up redirection after closing the modal
+            document.getElementById('closeModal').onclick = function() {
+                successModal.style.display = 'none';
+                // Fill the login form with the new user details
+                document.getElementById('username').value = username;
+                document.getElementById('password').value = password;
+
+                // Redirect to login page after 1 second
+                setTimeout(function() {
+                    window.location.href = '/login';
+                }, 1000); // Adjust time as needed
+            };
+
+            // Automatically close the modal after 3 seconds if not manually closed
+            setTimeout(() => {
+                successModal.style.display = 'none';
+                // Fill the login form with the new user details
+                document.getElementById('username').value = username;
+                document.getElementById('password').value = password;
+
+                // Trigger the login link click to switch forms
+                document.getElementById('login-link').click();
+            }, 3000); // Adjust time as needed
+        } else {
+            // Display error message if signup fails
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred during signup: ' + error.message);
+    });
+});
+
+        // Toggle between login and signup forms
+        document.getElementById('signup-link').addEventListener('click', function() {
+            document.querySelector('.form-popup').classList.add('show-signup');
+        });
+        document.getElementById('login-link').addEventListener('click', function() {
+            document.querySelector('.form-popup').classList.remove('show-signup');
+        });
+    });
+</script>
+</body>
+</html>  

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Cover App</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Map full-screen behind -->
+    <div id="map"></div>
+
+    <!-- Data container for cloud cover data -->
+    <div class="data-container">
+        <h3>Cloud Cover Data</h3>
+        <div>
+            <strong>Latitude:</strong> <span id="latitude">N/A</span><br>
+            <strong>Longitude:</strong> <span id="longitude">N/A</span>
+        </div>
+        <div id="cloudCoverDataTable" class="table-responsive mt-3">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>High Cloud Cover</td>
+                        <td id="cloudCoverHigh">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>Mid Cloud Cover</td>
+                        <td id="cloudCoverMid">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>Low Cloud Cover</td>
+                        <td id="cloudCoverLow">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>Total Cloud Cover</td>
+                        <td id="cloudCoverTotal">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>Visibility</td>
+                        <td id="visibility">N/A</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div id="chartContainer">
+            <canvas id="hourlyCloudCoverChart"></canvas>
+        </div>
+    </div>    
+    
+    <!-- Button container -->
+    <div class="button-container">
+        <button class="btn btn-secondary button-size" id="toggleChartButton">Show Cloud Cover Data</button>
+        <button class="btn btn-danger button-size" id="logoutBtn">Logout</button>
+        <!-- Conditionally render the View User button -->
+        {% if session.get('view_user_permission') %}
+        <button class="view-users-btn button-size" onclick="location.href='/all-users'">View Users</button>
+        {% endif %}
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../static/script.js"></script>
+</body>
+</html>
