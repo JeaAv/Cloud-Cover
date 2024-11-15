@@ -1,0 +1,304 @@
+{
+  "access": {
+    "embargo": {
+      "active": false,
+      "reason": null
+    },
+    "files": "public",
+    "record": "public",
+    "status": "open"
+  },
+  "created": "2023-10-26T06:35:33.772586+00:00",
+  "custom_fields": {},
+  "deletion_status": {
+    "is_deleted": false,
+    "status": "P"
+  },
+  "files": {
+    "count": 1,
+    "default_preview": "CloudTracks.zip",
+    "enabled": true,
+    "entries": {
+      "CloudTracks.zip": {
+        "access": {
+          "hidden": false
+        },
+        "checksum": "md5:0e862bf2ac903a5a42bbaf26c7413263",
+        "ext": "zip",
+        "id": "1817d645-9419-4fff-8609-a45a90d3b238",
+        "key": "CloudTracks.zip",
+        "links": {
+          "content": "https://zenodo.org/api/records/10042922/files/CloudTracks.zip/content",
+          "self": "https://zenodo.org/api/records/10042922/files/CloudTracks.zip"
+        },
+        "metadata": null,
+        "mimetype": "application/zip",
+        "size": 20734952614,
+        "storage_class": "L"
+      }
+    },
+    "order": [],
+    "total_bytes": 20734952614
+  },
+  "id": "10042922",
+  "is_draft": false,
+  "is_published": true,
+  "links": {
+    "access": "https://zenodo.org/api/records/10042922/access",
+    "access_grants": "https://zenodo.org/api/records/10042922/access/grants",
+    "access_links": "https://zenodo.org/api/records/10042922/access/links",
+    "access_request": "https://zenodo.org/api/records/10042922/access/request",
+    "access_users": "https://zenodo.org/api/records/10042922/access/users",
+    "archive": "https://zenodo.org/api/records/10042922/files-archive",
+    "archive_media": "https://zenodo.org/api/records/10042922/media-files-archive",
+    "communities": "https://zenodo.org/api/records/10042922/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/10042922/communities-suggestions",
+    "doi": "https://doi.org/10.5281/zenodo.10042922",
+    "draft": "https://zenodo.org/api/records/10042922/draft",
+    "files": "https://zenodo.org/api/records/10042922/files",
+    "latest": "https://zenodo.org/api/records/10042922/versions/latest",
+    "latest_html": "https://zenodo.org/records/10042922/latest",
+    "media_files": "https://zenodo.org/api/records/10042922/media-files",
+    "parent": "https://zenodo.org/api/records/8397232",
+    "parent_doi": "https://doi.org/10.5281/zenodo.8397232",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8397232",
+    "parent_html": "https://zenodo.org/records/8397232",
+    "requests": "https://zenodo.org/api/records/10042922/requests",
+    "reserve_doi": "https://zenodo.org/api/records/10042922/draft/pids/doi",
+    "self": "https://zenodo.org/api/records/10042922",
+    "self_doi": "https://doi.org/10.5281/zenodo.10042922",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10042922",
+    "self_html": "https://zenodo.org/records/10042922",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:10042922/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:10042922/sequence/default",
+    "versions": "https://zenodo.org/api/records/10042922/versions"
+  },
+  "media_files": {
+    "count": 0,
+    "enabled": false,
+    "entries": {},
+    "order": [],
+    "total_bytes": 0
+  },
+  "metadata": {
+    "creators": [
+      {
+        "affiliations": [
+          {
+            "name": "Stanford University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Chaudhry",
+          "given_name": "Muhammad Ahmed",
+          "identifiers": [
+            {
+              "identifier": "0009-0004-0417-9009",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Chaudhry, Muhammad Ahmed",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "Stanford University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Kim",
+          "given_name": "Lyna",
+          "name": "Kim, Lyna",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "Stanford University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Irvin",
+          "given_name": "Jeremy",
+          "identifiers": [
+            {
+              "identifier": "0000-0002-0395-4403",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Irvin, Jeremy",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "Stanford University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Ido",
+          "given_name": "Yuzu",
+          "name": "Ido, Yuzu",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "Stanford University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Chu",
+          "given_name": "Sonia",
+          "name": "Chu, Sonia",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "Stanford University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Isobe",
+          "given_name": "Jared Thomas",
+          "name": "Isobe, Jared Thomas",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "Stanford University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Ng",
+          "given_name": "Andrew Y.",
+          "name": "Ng, Andrew Y.",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "UC San Diego"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Watson-Parris",
+          "given_name": "Duncan",
+          "name": "Watson-Parris, Duncan",
+          "type": "personal"
+        }
+      }
+    ],
+    "description": "<p>The CloudTracks dataset consists of 1,780 MODIS satellite images hand-labeled for the presence of more than 12,000 ship tracks. More information about how the dataset was constructed may be found at&nbsp;<a href=\"http://github.com/stanfordmlgroup/CloudTracks\">github.com/stanfordmlgroup/CloudTracks</a>. The file structure of the dataset is as follows:</p><p>CloudTracks/<br>&nbsp; &nbsp; full/<br>&nbsp; &nbsp; &nbsp; &nbsp;images/<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (sample image name) mod2002121.1920D.png<br>&nbsp; &nbsp; &nbsp; &nbsp;jsons/<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (sample json name) mod2002121.1920D.json</p><p>The naming convention is as follows:<br>mod2002121.1920D: the first 3 letters specify which of the sensors on the two MODIS satellites captured the image, mod for Terra and myd for Aqua. This is followed by a 4 digit year (2002) and a 3 digit day of the year (121). The following 4 digits specify the time of day (1920; 24 hour format in the UTC timezone), followed by D or N for Day or Night.</p><p>The 1,780 MODIS Terra and Aqua images were collected between 2002 and 2021 inclusive over various stratocumulus cloud regions (such as the East Pacific and East Atlantic) where ship tracks have commonly been observed. Each image has dimension 1354 x 2030 and a spatial resolution of 1km. Of the 36 bands collected by the instruments, we selected channels 1, 20, and 32 to capture useful physical properties of cloud formations.</p><p>The labels are found in the corresponding JSON files for each image. The following keys in the json are particularly important:</p><p>imagePath: the filename of the image.<br>shapes: the list of annotations corresponding to the image, where each element of the list is a dictionary corresponding to a single instance annotation. The dictionary has a key with value \"shiptrack\" or \"uncertain\" which is the label of the annotation and the corresponding value is a linestrip detailing the ship track path.</p><p>Further pre-processing details may be found at the GitHub link above. If you have any questions about the dataset, contact us at:<br><a href=\"mailto:mahmedch@stanford.edu\">mahmedch@stanford.edu</a>,&nbsp;<a href=\"mailto:lynakim@stanford.edu\">lynakim@stanford.edu</a>,&nbsp;<a href=\"mailto:jirvin16@cs.stanford.edu\">jirvin16@cs.stanford.edu</a></p>",
+    "publication_date": "2023-10-25",
+    "publisher": "Zenodo",
+    "resource_type": {
+      "id": "dataset",
+      "title": {
+        "de": "Datensatz",
+        "en": "Dataset"
+      }
+    },
+    "rights": [
+      {
+        "description": {
+          "en": "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+        },
+        "icon": "cc-by-icon",
+        "id": "cc-by-4.0",
+        "props": {
+          "scheme": "spdx",
+          "url": "https://creativecommons.org/licenses/by/4.0/legalcode"
+        },
+        "title": {
+          "en": "Creative Commons Attribution 4.0 International"
+        }
+      }
+    ],
+    "subjects": [
+      {
+        "subject": "ship tracks"
+      },
+      {
+        "subject": "instance segmentation"
+      },
+      {
+        "subject": "deep learning"
+      },
+      {
+        "subject": "satellite imagery"
+      },
+      {
+        "subject": "climate change"
+      }
+    ],
+    "title": "CloudTracks: A Dataset for Localizing Ship Tracks in Satellite Images of Clouds",
+    "version": "1.0.1"
+  },
+  "parent": {
+    "access": {
+      "owned_by": {
+        "user": "614904"
+      },
+      "settings": {
+        "accept_conditions_text": null,
+        "allow_guest_requests": false,
+        "allow_user_requests": false,
+        "secret_link_expiration": 0
+      }
+    },
+    "communities": {},
+    "id": "8397232",
+    "pids": {
+      "doi": {
+        "client": "datacite",
+        "identifier": "10.5281/zenodo.8397232",
+        "provider": "datacite"
+      }
+    }
+  },
+  "pids": {
+    "doi": {
+      "client": "datacite",
+      "identifier": "10.5281/zenodo.10042922",
+      "provider": "datacite"
+    },
+    "oai": {
+      "identifier": "oai:zenodo.org:10042922",
+      "provider": "oai"
+    }
+  },
+  "revision_id": 6,
+  "stats": {
+    "all_versions": {
+      "data_volume": 1886880846734.0,
+      "downloads": 91,
+      "unique_downloads": 66,
+      "unique_views": 682,
+      "views": 778
+    },
+    "this_version": {
+      "data_volume": 1679531161734.0,
+      "downloads": 81,
+      "unique_downloads": 57,
+      "unique_views": 482,
+      "views": 546
+    }
+  },
+  "status": "published",
+  "updated": "2023-10-26T06:36:55.461679+00:00",
+  "versions": {
+    "index": 2,
+    "is_latest": true
+  }
+}
