@@ -15,18 +15,36 @@
             height: 100%;
             margin: 0;
             padding: 0;
-        }
-        #map {
-            height: 100%;
+            background-color: rgb(120, 147, 199);
         }
     </style>
 </head>
 <body>
+
+    <!-- Button to toggle the sidebar -->
+    <button id="sidebar-toggle-btn">☰</button>
+
+    <div class="sidebar">
+        <div class="sidebar-container">
+        <!-- Conditionally render the View User button -->
+        {% if session.get('view_user_permission') %}
+            <button class="view-users-btn" onclick="location.href='/all-users'">View Users</button>
+        {% endif %}
+        
+        <!-- Buttons container with logout button -->
+        
+            <button class="logout-btn" id="logout-btn">Logout</button>
+        </div>
+    </div>
+    
+    
+
     <!-- Map full-screen behind -->
     <div id="map"></div>
 
     <!-- Data container for cloud cover data -->
     <div class="data-container">
+        <div class="data-content">
         <h3>Cloud Cover Data</h3>
         <div>
             <strong>Latitude:</strong> <span id="latitude">N/A</span><br>
@@ -69,16 +87,20 @@
         <div id="chartContainer">
             <canvas id="hourlyCloudCoverChart"></canvas>
         </div>
+
+        <!-- Chatbot Container -->
+        <div id="chatbot-container">
+            <h3>Chatbot</h3>
+            <div id="chatbot">
+                <!-- Chatbot messages will appear here -->
+            </div>
+        </div>
+    </div>
     </div>    
-    
+
     <!-- Button container -->
     <div class="button-container">
-        <button class="btn btn-secondary button-size" id="toggleChartButton">Show Cloud Cover Data</button>
-        <button class="btn btn-danger button-size" id="logoutBtn">Logout</button>
-        <!-- Conditionally render the View User button -->
-        {% if session.get('view_user_permission') %}
-        <button class="view-users-btn button-size" onclick="location.href='/all-users'">View Users</button>
-        {% endif %}
+        
     </div>
 
     <!-- Scripts -->
@@ -86,5 +108,73 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../static/script.js"></script>
+    <script>
+    // Get the sidebar and the toggle button
+    const sidebar = document.querySelector('.sidebar');
+    const toggleButton = document.getElementById('sidebar-toggle-btn');
+
+    // Add click event listener to the toggle button
+    toggleButton.addEventListener('click', function() {
+        // Toggle the "open" class on the sidebar
+        sidebar.classList.toggle('open');
+    });
+
+
+
+    // Function to show the chatbot only when a location is clicked
+    map.on('click', function(e) {
+        document.getElementById('chatbot-container').style.display = 'flex'; // Show chatbot container
+        let lat = e.latlng.lat;
+        let lng = e.latlng.lng;
+        document.getElementById('latitude').textContent = lat;
+        document.getElementById('longitude').textContent = lng;
+        
+        // Fetch the chatbot responses from the backend API
+        fetchChatbotResponse(lat, lng);
+    });
+
+    // Function to fetch the chatbot responses from the Flask app
+    function fetchChatbotResponse(latitude, longitude) {
+        fetch(`/get-chatbot-response?latitude=${latitude}&longitude=${longitude}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.responses) {
+                    // Call function to display messages from the response
+                    displayChatbotMessages(data.responses);
+                } else {
+                    // Handle case where no responses are returned
+                    console.error('No responses received');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching chatbot response:', error);
+            });
+    }
+
+    // Function to display messages letter by letter
+    function displayChatbotMessages(responses) {
+        let chatbot = document.getElementById('chatbot');
+        chatbot.innerHTML = ''; // Clear previous messages
+
+        let i = 0;
+        let messageIndex = 0;
+        
+        function typeMessage() {
+            if (i < responses[messageIndex].length) {
+                chatbot.innerHTML += responses[messageIndex].charAt(i);
+                i++;
+                setTimeout(typeMessage, 50); // Delay between each character
+            } else {
+                messageIndex++;
+                if (messageIndex < responses.length) {
+                    i = 0; // Reset the character index for the next message
+                    setTimeout(typeMessage, 500); // Delay before showing the next message
+                }
+            }
+        }
+
+        typeMessage(); // Start typing the first message
+    }
+    </script>
 </body>
 </html>

@@ -86,8 +86,20 @@
                 </div>
                 <button type="submit">Log In</button>
             </form>
+            
+            <div>
+                <a href="{{ url_for('google_login') }}">
+                    <button class="google-login-button">
+                        <img src="/static/images/google-logo.png" alt="Google Logo" class="google-logo">
+                        Login with Google
+                    </button>
+                </a>
+            </div>
+            
+
+
             <div class="bottom-link">
-                Don't have an account?
+                <br>Don't have an account?
                 <a href="#" id="signup-link">Signup</a>
             </div>
         </div>
@@ -115,13 +127,21 @@
                     <label>Create password</label>
                 </div>
                 <button type="submit">Sign Up</button>
+
+                
+
             </form>
+
+            
+
             <div class="bottom-link">
                 Already have an account?
                 <a href="#" id="login-link">Login</a>
             </div>
         </div>
     </div>
+
+    
 
     <!-- Success Notification Modal -->
 <div id="successModal" class="modal">
