@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Handle logout button click
-document.getElementById('logoutBtn').addEventListener('click', function() {
+document.getElementById('logout-btn').addEventListener('click', function() {
     // Clear session data if necessary
     sessionStorage.clear(); // Uncomment if you're using session storage
 
