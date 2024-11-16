@@ -83,6 +83,14 @@ def get_cloud_data(latitude, longitude):
             cursor.execute(insert_current_query, (location_id, timestamps[0], current_total_cover, current_low_cover, current_mid_cover, current_high_cover, current_visibility))
 
             connection.commit()
+
+            # Adding chatbot responses (this is new)
+            chatbot_responses = generate_chatbot_responses(latitude, longitude, cloud_cover_total, cloud_cover_low, cloud_cover_mid, cloud_cover_high, visibility, timestamps)
+
+            print("[DEBUG] Chatbot Responses Generated:")
+            for response in chatbot_responses:
+                print(response)
+
             return True
 
         except Error as e:
@@ -96,3 +104,15 @@ def get_cloud_data(latitude, longitude):
     else:
         print(f"[ERROR] API request failed with status: {response.status_code}")
         return False
+
+def generate_chatbot_responses(latitude, longitude, cloud_cover_total, cloud_cover_low, cloud_cover_mid, cloud_cover_high, visibility, timestamps):
+    # Generate chatbot responses based on hourly data
+    chatbot_responses = []
+
+    # First, add a summary of the current weather (only the first result)
+    if cloud_cover_total:
+        current_message = f"Currently, the cloud cover at Latitude {latitude} and Longitude {longitude} is {cloud_cover_total[0]}%.\n"
+        current_message += f"High Clouds: {cloud_cover_high[0]}%, Mid Clouds: {cloud_cover_mid[0]}%, Low Clouds: {cloud_cover_low[0]}%, Visibility: {visibility[0]} meters."
+        chatbot_responses.append(current_message)
+
+    return chatbot_responses
