@@ -1,12 +1,71 @@
-from flask import Flask, render_template, request, jsonify
+import os
+import pathlib
+from flask import Flask, render_template, request, jsonify, abort, redirect, session
 import mysql.connector
 from mysql.connector import Error
 from fetch import get_cloud_data  # Adjusted function to fetch and store cloud data
-from flask import Flask, session
-
+from fetch import generate_chatbot_responses  # Import the function from fetch.py
+from google.oauth2 import id_token # type: ignore
+from google_auth_oauthlib.flow import Flow # type: ignore
+import google.auth.transport.requests # type: ignore
+from chatbot import cloud_weather_chatbot
 
 app = Flask(__name__)
-app.secret_key = 'root'  # Change this to a secure random string
+app.secret_key = "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"  # Change this to a secure random string
+
+# Google OAuth2 Configuration
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # Allow HTTP traffic for local development
+GOOGLE_CLIENT_ID = "973444997965-8qvk6df1psjqm0p3c4dq127u16g5t3nc.apps.googleusercontent.com"
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "clientSecret.json")
+
+flow = Flow.from_client_secrets_file(
+    'clientSecret.json',  # Path to your downloaded client secret JSON file
+    scopes=[
+        'https://www.googleapis.com/auth/userinfo.profile', 
+        'https://www.googleapis.com/auth/userinfo.email',
+        'openid'
+    ],
+    redirect_uri='http://127.0.0.1:5000/index'  # Your redirect URI
+)
+
+# Google login required decorator
+def login_is_required(function):
+    def wrapper(*args, **kwargs):
+        if "google_id" not in session:
+            return abort(401)  # Authorization required
+        else:
+            return function()
+
+    return wrapper
+
+# Google Login Route
+@app.route("/google-login")
+def google_login():
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+    return redirect(authorization_url)
+
+# Google OAuth callback route
+@app.route("/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+
+    if not session["state"] == request.args["state"]:
+        abort(500)  # State does not match!
+
+    credentials = flow.credentials
+    request_session = request.session()
+    token_request = google.auth.transport.requests.Request(session=request_session)
+
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=GOOGLE_CLIENT_ID
+    )
+
+    session["google_id"] = id_info.get("sub")
+    session["name"] = id_info.get("name")
+    return redirect("/index")
 
 
 DB_CONFIG = {
@@ -23,6 +82,7 @@ def create_connection():
     except Error as e:
         print(f"[ERROR] Database connection failed: {e}")
         return None
+    
 
 @app.route('/')
 def login():
@@ -120,6 +180,7 @@ def get_stored_data():
     longitude = float(data['longitude'])
 
     print(f"[DEBUG] Received Latitude: {latitude}, Longitude: {longitude}")
+    
 
     try:
         # Establish connection to the database
@@ -193,7 +254,7 @@ def get_stored_data():
                 'visibility': f"{int(current_data['visibility'])} Meters"
             }
         }
-
+        
     except Error as e:
         print(f"[ERROR] Database error: {e}")
         response = {'success': False, 'message': f'Database error: {str(e)}'}
@@ -204,6 +265,39 @@ def get_stored_data():
 
     print(f"[DEBUG] Response: {response}")
     return jsonify(response)
+
+
+@app.route('/get-chatbot-response', methods=['GET'])
+def get_chatbot_response():
+    latitude = request.args.get('latitude')
+    longitude = request.args.get('longitude')
+
+    if not latitude or not longitude:
+        return jsonify({"error": "Latitude and Longitude are required"}), 400
+
+    # Fetch cloud data from the database or an external source, for example
+    # (This part is simplified for the purpose of the example)
+    cloud_cover_total = [75]  # Example data
+    cloud_cover_low = [50]    # Example data
+    cloud_cover_mid = [25]    # Example data
+    cloud_cover_high = [5]    # Example data
+    visibility = [1000]       # Example data
+    timestamps = ["2024-11-12T12:00"]  # Example timestamp
+
+    # Call the generate_chatbot_responses function from fetch.py
+    chatbot_responses = generate_chatbot_responses(
+        latitude, longitude,
+        cloud_cover_total,
+        cloud_cover_low,
+        cloud_cover_mid,
+        cloud_cover_high,
+        visibility,
+        timestamps
+    )
+
+    # Return the chatbot responses
+    return jsonify({"responses": chatbot_responses})
+
 
 
 ####################
@@ -313,7 +407,9 @@ def delete_user(user_id):
             connection.close()
 
 
-
+#######################
+### USER INFOMATION ###
+#######################
 @app.route('/user-info', methods=['GET'])
 def get_user_info():
     user_id = session.get('user_id')  # Assuming you use session to store logged-in user info
@@ -366,6 +462,7 @@ def get_all_users():
         if 'connection' in locals() and connection.is_connected():
             cursor.close()
             connection.close()
+
 
 
 if __name__ == '__main__':
